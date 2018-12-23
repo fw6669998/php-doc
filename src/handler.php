@@ -131,7 +131,6 @@ function getClass()
             }
         }
     }
-//    print_r($clses);
     return $clses;
 }
 
@@ -140,7 +139,7 @@ function handleAll()
     $clses = getClass();
     $clses['function'] = 1;
     $clses['class'] = 1;
-    $clses['reserved.variables'] = 1;
+    $clses['reserved'] = 1;
 
     if (@$handle = opendir(in)) {
         while (($file = readdir($handle)) !== false) {
@@ -149,15 +148,11 @@ function handleAll()
             if (@$clses[$prefix]) {
                 handle($file);
             }
-//            if ($tokens[count($tokens) - 2] == 'constants') {  //收集常量
-//                handleConst($file);
-//            }
+            if ($tokens[count($tokens) - 2] == 'constants') {  //收集常量
+                handleConst($file);
+            }
         }
     }
 }
 
-//date('y');
-//handle('function.date-timezone-set.html');
-//$cls = getClass();
-//print_r($cls);
 handleAll();
