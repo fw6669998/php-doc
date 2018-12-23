@@ -10,7 +10,7 @@
         File -> Settings -> Languages&Framworks -> PHP -> PHP Runtime -> Default stubs path -> 选择文档目录
     查看文档
         在方法上按 Ctrl+Q
-        ![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
+![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
     
 ### 数据来源
 
