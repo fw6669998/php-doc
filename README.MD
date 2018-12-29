@@ -26,6 +26,7 @@
         attacher.php    将处理后的内容替换现有的jetbrain英文文档
     1%手动处理
         操全局变量, superglobals/_superglobals.php
+        array,list,empty等函数,部分格式出现错误的函数
     如需制作其他文档语言文档, 可从php.net下载相应语言的文档,步骤同上
 
 ### English introduction
