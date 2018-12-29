@@ -8,6 +8,7 @@
         https://github.com/fw6669998/php-doc/blob/master/document/out.zip
     设置文档目录
         File -> Settings -> Languages&Framworks -> PHP -> PHP Runtime -> Default stubs path -> 选择文档目录
+        // 新建项目会改回原来的英文文档, 每个项目都使用该文档,还需要在 File->Default Setting中设置下
     查看文档
         在方法上按 Ctrl+Q
 ![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
