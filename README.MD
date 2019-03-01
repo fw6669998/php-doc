@@ -12,6 +12,9 @@
     查看文档
         在方法上按 Ctrl+Q
         //快捷键可能会不起作用, 需要在File->Setting->Keymap中搜索quick documentation, 重新设置为其他快捷键
+        
+### 示例
+       
 ![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
     
 ### 数据来源
@@ -19,7 +22,7 @@
     php中文文档,  http://hk1.php.net/distributions/manual/php_manual_zh.tar.gz
     phpstorm的原php程序文档, https://codeload.github.com/JetBrains/phpstorm-stubs/zip/2018.1.2
 
-### 文档制作
+### 文档制作过程
 
     99%程序处理
         handler.php     将下载的中文文档进行处理
