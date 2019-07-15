@@ -1,0 +1,31 @@
+<idea-plugin>
+  <id>pers.fw.doc</id>
+  <name>Chinese PHP Document</name>
+  <version>1.0</version>
+  <vendor email="fw6669998@163.com" url="https://github.com/fw6669998/php-doc">https://github.com/fw6669998/php-doc</vendor>
+
+  <description>
+    <![CDATA[
+      <p>Quickly view the Chinese documentation of the php basic function on the code, the default shortcut key ctrl+q.</p>
+      <p>在代码上快速查看php基本函数的中文文档,默认快捷键ctrl+q.</p>
+      </br>
+      <p><img src="https://raw.githubusercontent.com/fw6669998/php-doc/master/example.png" alt="screenshots-balloon.png"/></p>
+    ]]>
+  </description>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="163.3984"/>
+<!--  <idea-version since-build="173.0"/>-->
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.jetbrains.php</depends>
+  <extensions defaultExtensionNs="com.jetbrains.php">
+    <libraryRoot id="library" path="/library/" runtime="true" order="first"/>
+  </extensions>
+
+</idea-plugin>
