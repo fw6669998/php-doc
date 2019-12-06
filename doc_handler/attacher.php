@@ -6,8 +6,10 @@
  * Time: 20:47
  */
 
-const docIn = 'D:\Temp\data\\';
-const docOut = 'D:\Temp\out';
+//const docIn = 'D:\Temp\data\\';
+//const docOut = 'D:\Temp\out';
+define('docIn', __DIR__ . '\..\raw\temp\\');
+define('docOut', __DIR__ . '\..\raw\phpstorm-stubs-2018.1.2\\');
 const line = "\n";
 const dataArr = [
     'AMQPBasicProperties.getContentType' => 'test comment',

@@ -10,8 +10,8 @@ include('./simple_html_dom.php');
 
 const line = "\r\n";
 const site = 'http://php.net/manual/zh/';    //外链站点 //也可设为本地衔接 例: file:///D:/Temp/php-chunked-xhtml/
-const in = 'D:\temp\php-chunked-xhtml\\';
-const out = 'D:\temp\data\\';
+define('in', __DIR__ . '\..\raw\php-chunked-xhtml\\');
+define('temp', __DIR__ . '\..\raw\temp\\');
 
 /**
  * 加载文本内容
@@ -69,26 +69,59 @@ function modifyStr($html)
     return $html;
 }
 
+function modifyAttr($dom,$selector,$value,$attr='style'){
+    $subs=$dom->find($selector);
+    foreach ($subs as $sub){
+        $sub->setAttribute($attr,$value);
+    }
+}
 
-/**
- * 处理函数
- */
-function handle($file = 'function.date.html')
-{
-    $content = loadStr($file);
-    $selector = str_get_html($content);
-    $name = substr($file, 0, strlen($file) - 5);
-    $dom = $selector->find("div[id='$name']", 0);
-    $ref = $selector->find("div[class='up']", 0);  //参考衔接
-    modifyUrl($ref);
-    modifyUrl($dom);
-    $dom->appendChild($ref);
+function modifyTag($dom, $selector,$outside, $pre, $after,$one=false){
+    $subs=$dom->find($selector);
+    foreach ($subs as $sub){
+        if($outside)
+            $sub->outertext=$pre.$sub->outertext().$after;
+        else
+            $sub->outertext=$pre.$sub->innertext().$after;
+        if($one)
+            break;
+    }
+}
 
-    $html = $dom->outertext;
-    $html = modifyStr($html);
+function handleStyle($dom){
+    //方法颜色
+    modifyAttr($dom,'.methodname','color:#CC7832');
+    modifyAttr($dom,'.function strong','color:#CC7832');
+//类型颜色
+    modifyAttr($dom,'.type','color:#EAB766');
+//参数颜色
+//modifyAttr($dom,'.parameter','color:#9070A1');
+//方法描述背景
+    modifyAttr($dom,'.methodsynopsis','border:1px gray;padding-left:5px;background:#232525');
+//添加分隔符
+//modifyAttr($dom,"div[class='refsect1']","BORDER-TOP: gray 1px dashed; OVERFLOW: hidden; HEIGHT: 1px");
+//note
+    modifyAttr($dom,".note","border:1px gray solid");
+//php代码
+    modifyAttr($dom,".phpcode","border-color:gray;background:#232525");
+//output
+    modifyAttr($dom,".screen","background:black;padding-left:5px;");
 
-    file_put_contents(out . '\\' . $file, $html);
-    echo $file . line;
+//pre
+    modifyTag($dom,"pre",false,'<span>','</span>');
+//code
+    modifyTag($dom,"code",false,'<span>','</span>');
+//参数标签, 9070A1 编辑器紫, EE82EE 鲜艳紫, 00B5FF 鲜艳蓝,4285F4 一般蓝, 19A1FA 3A95FF ok蓝
+    modifyTag($dom,'.parameter',false,'<span class="parameter" style="color:#2EACF9">','</span>');
+//去除换行:参数,示例
+    modifyTag($dom,".parameters .para",false,'<span>','</span>',true);
+    modifyTag($dom,".examples .para",false,'<span>','</span>',true);
+    modifyTag($dom,".seealso .para",false,'<span>','</span>',true);
+    modifyTag($dom,".changelog .para",false,'<span>','</span>',true);
+//添加分隔符,换行标签
+    modifyTag($dom,"div[class='refsect1']",true,'<br></br><div style="BORDER-TOP: gray 1px dashed; OVERFLOW: hidden; HEIGHT: 1px"></div>','');
+//modifyTag($dom,"div[class='refsect1']",true,'<br></br><hr></hr>','');
+    return $dom;
 }
 
 function handleConst($file = 'filesystem.consts.html')
@@ -111,11 +144,11 @@ function handleConst($file = 'filesystem.consts.html')
         modifyUrl($next);
         $html = $next->innertext;
         if (!$html) continue;
-        if (trim($html)=='') continue;
+        if (trim($html) == '') continue;
         $html = modifyStr($html);
         if (strpos($outFile, '::')) continue;
         echo $outFile . line;
-        file_put_contents(out . '\\' . $outFile, $html);
+        file_put_contents(temp . '\\' . $outFile, $html);
     }
 }
 
@@ -132,6 +165,28 @@ function getClass()
         }
     }
     return $clses;
+}
+
+/**
+ * 处理函数
+ */
+function handle($file = 'function.date.html')
+{
+    $content = loadStr($file);
+    $selector = str_get_html($content);
+    $name = substr($file, 0, strlen($file) - 5);
+    $dom = $selector->find("div[id='$name']", 0);
+    $ref = $selector->find("div[class='up']", 0);  //参考衔接
+    modifyUrl($dom);
+    modifyUrl($ref);
+    $dom->appendChild($ref);
+    handleStyle($dom);
+
+    $html = $dom->outertext;
+    $html = modifyStr($html);
+
+    file_put_contents(temp . '\\' . $file, $html);
+    echo $file . line;
 }
 
 function handleAll()
@@ -155,4 +210,5 @@ function handleAll()
     }
 }
 
+//handle('function.substr.html');
 handleAll();

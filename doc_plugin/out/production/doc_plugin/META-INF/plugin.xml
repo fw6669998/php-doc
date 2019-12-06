@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>pers.fw.doc</id>
   <name>Chinese PHP Document</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="fw6669998@163.com" url="https://github.com/fw6669998/php-doc">https://github.com/fw6669998/php-doc</vendor>
 
   <description>
