@@ -22,4 +22,4 @@ Search for chinese php document, in phpstorm's plugin center and click install.
        
 ![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
 
-### [制作过程/Documentation process](./develop.md).
+### [制作过程/Documentation process](./develop.MD).
