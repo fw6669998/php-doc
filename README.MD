@@ -20,6 +20,7 @@ Search for chinese php document, in phpstorm's plugin center and click install.
         
 ### 示例/example
        
-![img](https://github.com/fw6669998/php-doc/blob/master/example.png) 
+![img](./example.png) 
+![img](./example1.png) 
 
 ### [制作过程/Documentation process](./develop.MD).

@@ -1,5 +1,12 @@
 ###文档制作过程
 
+数据来源
+
+       php文档: https://www.php.net/docs.php
+       phpstorm默认php文档: https://github.com/JetBrains/phpstorm-stubs       
+
+处理程序
+
     99%程序处理
     
         handler.php     文档处理文件
@@ -21,6 +28,13 @@
     
  ###Documentation process
  
+data source
+
+    php doument data: https://www.php.net/docs.php
+    phpstorm default php document: https://github.com/JetBrains/phpstorm-stubs
+    
+Processing program  
+    
     99% program processing.
         Handler.php document processing file. 
             Modify document styl. 
@@ -29,11 +43,11 @@
             Save the file to the temp directory for use in the next step.
              
         Attacher.php document attach Fil. 
-            Replace the processed content with the existing jetbrain English document. 
-            1% manual processing. 
+            Replace the processed content with the existing jetbrain English document.
+            
+    1% manual processing. 
             Manually attach the processed content under the temp directory to the jetbrain English document. 
             Fuck global variables: superglobals/_superglobals.php. 
             Special methods: standard/_types.php / / empty (), exit (), etc. 
-            Magic variable: standard/basic.php. 
             
     To create documents in other documentation languages, you can download the documents in the corresponding language from php.net. The steps are the same as above.
