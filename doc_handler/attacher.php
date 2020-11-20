@@ -9,7 +9,7 @@
 //const docIn = 'D:\Temp\data\\';
 //const docOut = 'D:\Temp\out';
 define('docIn', __DIR__ . '\..\raw\temp\\');
-define('docOut', __DIR__ . '\..\raw\phpstorm-stubs-2018.1.2\\');
+define('docOut', __DIR__ . '\..\raw\phpstorm-stubs\\');
 const line = "\n";
 const dataArr = [
     'AMQPBasicProperties.getContentType' => 'test comment',
@@ -36,7 +36,7 @@ function my_dir($dir, $parent = '', &$files = [])
 
 function isComment($line)
 {
-    foreach (['/*', '*', '*/'] as $item) {
+    foreach (['/*', '*', '*/','#'] as $item) {
         if (strpos($line, $item) === 0) {
             return true;
         }
@@ -108,6 +108,18 @@ function isConst($line)
     return false;
 }
 
+function isVar($line){
+    $line = str_replace(' ', '', $line);
+    $pre = "$";
+    if (strpos($line, $pre) === 0) {
+        $line = str_replace($pre, '', $line);
+        $line = str_replace('_', '', $line);
+        $var = explode("=", $line)[0];
+        return $var;
+    }
+    return false;
+}
+
 function handle($name)
 {
     $file = docOut . $name;
@@ -129,25 +141,24 @@ function handle($name)
             //类
             if ($clsName = isClass($line)) {
                 $class = $clsName;
-
                 $newComment = getComment('class.' . $class, $comment);
                 $newContent .= $newComment;
                 $comment = '';    //注释已使用
-            }
-
-            //函数方法
-            if ($function = isFunction($line)) {
+            }else if ($function = isFunction($line)) {  //函数方法
+                if (substr($function,0,20)=='PS_UNRESERVE_PREFIX_'){
+                    $function=substr($function,20);
+                }
                 $blankPre = strpos($line, ' ') === 0;    //前面空白是类方法的特征
                 $function = $class && $blankPre ? $class . '.' . $function : 'function.' . $function;
-
                 $newComment = getComment($function, $comment);
                 $newContent .= $newComment;
                 $comment = '';    //注释已使用
-            }
-
-            //常量
-            if ($const = isConst($line)) {
+            }else if ($const = isConst($line)) {    //常量
                 $newComment = getComment('constant.' . $const, $comment);
+                $newContent .= $newComment;
+                $comment = '';    //注释已使用
+            }else if($var = isVar($line)){  //预定义变量
+                $newComment = getComment('reserved.variables.' . $var, $comment);
                 $newContent .= $newComment;
                 $comment = '';    //注释已使用
             }

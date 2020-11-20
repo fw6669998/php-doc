@@ -66,6 +66,9 @@ function modifyStr($html)
     $html = str_replace('*/', '', $html);
     //重设代码颜色以便在黑色主题下查看
     $html = str_replace('#0000BB', '#9876AA', $html);
+    //清理换行
+    $html = str_replace("\r", '', $html);
+    $html = str_replace("\n", '', $html);
     return $html;
 }
 
@@ -88,6 +91,18 @@ function modifyTag($dom, $selector,$outside, $pre, $after,$one=false){
     }
 }
 
+function modifyOutput($dom){
+    $subs = $dom->find("pre");
+    foreach ($subs as $sub) {
+        $text = $sub->innertext();
+        if (substr($text,0,1)=="\n"){
+            $text=substr($text,1);
+        }
+        $text = '<span>' . str_replace("\n", "<br>",$text) . '</span>';
+        $sub->outertext = $text;
+    }
+}
+
 function handleStyle($dom){
     //方法颜色
     modifyAttr($dom,'.methodname','color:#CC7832');
@@ -95,9 +110,9 @@ function handleStyle($dom){
 //类型颜色
     modifyAttr($dom,'.type','color:#EAB766');
 //参数颜色
-//modifyAttr($dom,'.parameter','color:#9070A1');
+    modifyAttr($dom,'.parameter','color:#9070A1');
 //方法描述背景
-    modifyAttr($dom,'.methodsynopsis','border:1px gray;padding-left:5px;background:#232525');
+//    modifyAttr($dom,'.methodsynopsis','border:1px gray;padding-left:5px;background:#232525');
 //添加分隔符
 //modifyAttr($dom,"div[class='refsect1']","BORDER-TOP: gray 1px dashed; OVERFLOW: hidden; HEIGHT: 1px");
 //note
@@ -105,14 +120,15 @@ function handleStyle($dom){
 //php代码
     modifyAttr($dom,".phpcode","border-color:gray;background:#232525");
 //output
-    modifyAttr($dom,".screen","background:black;padding-left:5px;");
+    modifyAttr($dom,".screen","color:AFB1B3;background:black;padding-left:5px;");
 
 //pre
-    modifyTag($dom,"pre",false,'<span>','</span>');
+    modifyOutput($dom);
+//    modifyTag($dom,"pre",false,'<span>','</span>');
 //code
     modifyTag($dom,"code",false,'<span>','</span>');
 //参数标签, 9070A1 编辑器紫, EE82EE 鲜艳紫, 00B5FF 鲜艳蓝,4285F4 一般蓝, 19A1FA 3A95FF ok蓝
-    modifyTag($dom,'.parameter',false,'<span class="parameter" style="color:#2EACF9">','</span>');
+    modifyTag($dom,'.parameter',false,'<span class="parameter" style="color:#3A95FF">','</span>');
 //去除换行:参数,示例
     modifyTag($dom,".parameters .para",false,'<span>','</span>',true);
     modifyTag($dom,".examples .para",false,'<span>','</span>',true);
@@ -173,13 +189,14 @@ function getClass()
 function handle($file = 'function.date.html')
 {
     $content = loadStr($file);
-    $selector = str_get_html($content);
+    $selector = str_get_html($content,true,true,DEFAULT_TARGET_CHARSET,false);
     $name = substr($file, 0, strlen($file) - 5);
     $dom = $selector->find("div[id='$name']", 0);
-    $ref = $selector->find("div[class='up']", 0);  //参考衔接
+
+//    $ref = $selector->find("div[class='up']", 0);  //参考衔接
     modifyUrl($dom);
-    modifyUrl($ref);
-    $dom->appendChild($ref);
+//    modifyUrl($ref);
+//    $dom->appendChild($ref);
     handleStyle($dom);
 
     $html = $dom->outertext;

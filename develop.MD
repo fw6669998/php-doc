@@ -20,8 +20,6 @@
         
     1%手动处理
         将temp目录的下处理过的内容手动附加到jetbrain英文文档上
-        操全局变量: superglobals/_superglobals.php
-        特殊方法:   standard/_types.php   //empty(),exit()等
         魔术变量:   standard/basic.php
         
     如需制作其他文档语言文档, 可从php.net下载相应语言的文档,步骤同上
@@ -47,7 +45,6 @@ Processing program
             
     1% manual processing. 
             Manually attach the processed content under the temp directory to the jetbrain English document. 
-            Fuck global variables: superglobals/_superglobals.php. 
-            Special methods: standard/_types.php / / empty (), exit (), etc. 
+            Magic variable: standard/basic.php
             
     To create documents in other documentation languages, you can download the documents in the corresponding language from php.net. The steps are the same as above.
