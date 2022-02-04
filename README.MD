@@ -11,6 +11,7 @@
 
 
 离线安装:   下载项目下的/document/phpdoc-cn.zip文件,解压. 然后点击phpstorm->project->External Libraries->PHP Runtime->右键->Configure PHP Runtime->Advanced Setting->Default Stub Paths->指向解压文件的目录
+//使用该方法可以编辑存根, 可以在方法上添加自己的笔记
 
 ### introduction. 
 
@@ -25,7 +26,7 @@ Online installation:    search for Chinese PHP document in the plug-in center of
 
 
 Offline installation:   Download /document/phpdoc-en.zip file, unzip Then click phpstorm -> Project -> external libraries -> PHP runtime -> right click -> configure PHP runtime -> advanced setting -> Default stub paths -> point to the directory of the extracted file
-
+//Using this method, you can edit the stub and add your own notes on the method
         
 ### 示例/example
        
